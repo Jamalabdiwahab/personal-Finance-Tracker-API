@@ -46,7 +46,7 @@ const startSever=async()=>{
         })
         
     } catch (error) {
-        console.error('❌ MongoDB connection failed:', err.message);
+        console.error('❌ MongoDB connection failed:', error.message);
         process.exit(1);
     }
 }
