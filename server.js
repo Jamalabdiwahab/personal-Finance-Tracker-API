@@ -33,6 +33,8 @@ app.use('/transactions',transactionRoutes)
 
 app.use(notFound)
 app.use(globalErrorHandler)
+console.log("Mongo URI exists:", !!process.env.MONGO_URI_PRO);
+
 
 const startSever=async()=>{
     try {

@@ -14,7 +14,7 @@ const options = {
     },
     servers: [
       {
-        url: process.env.NODE_ENV == 'development' ? 'http://localhost:5000' : 'https://node-js-api-s6tp.onrender.com'
+        url: process.env.NODE_ENV == 'development' ? 'http://localhost:5000' : 'https://personal-finance-tracker-api-1-2n2n.onrender.com'
       }
     ],
     components: {
