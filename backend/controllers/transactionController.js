@@ -79,7 +79,7 @@ export const getMonthlySummary = async (req, res, next) => {
     const end = new Date(y, m + 1, 1);
 
     const summary = await Transactions.aggregate([
-      { $match: { createdAt: { $gte: start, $lt: end } } },
+      { $match: {  createdAt: { $gte: start, $lt: end } } },
       {
         $group: {
           _id: { category: "$category", type: "$type" },

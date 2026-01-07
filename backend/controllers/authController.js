@@ -14,7 +14,7 @@ export const registerNewUser=async(req,res,next)=>{
 
         const user=await User.create({name,email,password,role});
         const token=generateToken(user._id);
-        res.status(201).json({token})
+        res.status(201).json({token,user})
         
     } catch (error) {
         next(error)
@@ -34,7 +34,7 @@ export const login=async(req,res,next)=>{
         }
 
         const token=generateToken(user._id)
-        res.json({token},{user})
+        res.json({token, user})
     } catch (error) {
         next(error)
     }

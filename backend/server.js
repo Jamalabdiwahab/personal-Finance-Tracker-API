@@ -1,4 +1,6 @@
 import express from "express";
+import path from 'path'
+import { fileURLToPath } from 'url'
 import cors from 'cors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
@@ -18,7 +20,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cors(
     {
-        origin:'http://localhost:5000'
+        origin:'http://localhost:5173'
     }
 ))
 
@@ -26,10 +28,25 @@ if(NODE_ENV == 'development'){
     app.use(morgan('dev'))
 }
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.use('/auth',authRoutes)
-app.use('/transactions',transactionRoutes)
+app.use('/api/auth',authRoutes)
+app.use('/api/transactions',transactionRoutes)
+
+if (process.env.NODE_ENV === 'production') {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
+
+  app.use(
+    express.static(path.join(__dirname, '..', 'frontend', 'dist'))
+  );
+
+  app.use ((req, res) => {
+    res.sendFile(
+      path.join(__dirname, '..', 'frontend', 'dist', 'index.html')
+    );
+  });
+}
 
 app.use(notFound)
 app.use(globalErrorHandler)
